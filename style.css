@@ -1,0 +1,61 @@
+.main{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 50%;
+   flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+
+}
+.all-information h1{
+   font-size: 38px;
+}
+input{
+    height: 30px;
+    margin: 10px 15px;
+    border: 1px solid grey;
+    box-shadow: 0px 7px 6px 0px grey;
+    border-radius: 10px;
+    width: 300px;
+}
+button{
+    background-color: white;
+    border: none;
+    box-shadow: grey 2px 2px 10px;
+    height: 30px;
+    width: 60px;
+    border-radius: 10%;
+    margin: 10px;
+
+}
+select{
+    background-color: white;
+    border: none;
+    box-shadow: grey 2px 2px 10px;
+    height: 30px;
+    width: 60px;
+    border-radius: 10%;
+    margin: 10px;
+}
+.values{
+   
+    display: flex;
+}
+.values h2{
+    font-size: 22px;
+    margin: 15px;
+    margin-bottom: 40px;
+}
+.tables{
+    width: 100%;
+    display: flex;
+    margin: 40px;
+    flex-direction: column;
+  
+}
+.income-table{
+
+}
