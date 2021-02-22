@@ -179,7 +179,7 @@ function newExpanse(){
 window.onload = function(){
   let array =[]
   localStorage.setItem('informations', JSON.stringify(array))
-  localStorage.setItem('informationE', JSON.stringify(array))
+  localStorage.setItem('informationsE', JSON.stringify(array))
   
     if(localStorage.getItem('informations') || localStorage.getItem('informationsE') ){
       
