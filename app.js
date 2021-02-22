@@ -1,22 +1,23 @@
 const addButton = document.getElementById("button");
 
-
+// delete items
 const deleteItem = id => {
  const incomeRow = document.getElementById('income')
  const expanseROW = document.getElementById('expanse')
-  console.log(id);
+  ;
     const incomeInfo = JSON.parse(localStorage.getItem('informations'))
     const expanseInfo = JSON.parse(localStorage.getItem('informationsE'))
     const remainingIssuesI = incomeInfo.filter( item => item.id != id )
-    console.log(remainingIssuesI);
+  
     
+   let myBudget = 0
+   
     const remainingIssuesE = expanseInfo.filter( item => item.id!=id )
     localStorage.setItem('informationsE', JSON.stringify(remainingIssuesE))
     localStorage.setItem('informations', JSON.stringify(remainingIssuesI))
-    
-    
     incomeRow.innerHTML =""
     remainingIssuesI.forEach(info => {
+                myBudget = myBudget + parseInt (info.value)
                 const {item ,value,id} = info
                 incomeRow.innerHTML +=`
                 <tr>
@@ -26,6 +27,11 @@ const deleteItem = id => {
               </tr> 
                 `
             });
+          
+           localStorage.setItem('balance', JSON.stringify(myBudget))
+           document.getElementById('balance').innerText = myBudget
+
+            
             expanseROW.innerHTML =""
             remainingIssuesE.forEach(info => {
                 const {item ,value,id} = info
@@ -37,9 +43,11 @@ const deleteItem = id => {
               </tr> 
                 `
             });
+     
+
   }
 
-
+// evemt listner
 addButton.addEventListener("click", (e) => {
   const plusMinus = document.getElementById("select").value;
   if(plusMinus =="plus"){
@@ -55,6 +63,8 @@ addButton.addEventListener("click", (e) => {
   }
   informationsIncome.push(info)
   localStorage.setItem('informations', JSON.stringify( informationsIncome))
+  newBalance()
+  newIncome()
 }
 if(plusMinus =='minus'){
    
@@ -69,10 +79,12 @@ const id = Math.floor(Math.random()*100000000) + ''
     }
     informationsExpance.push(info)
     localStorage.setItem('informationsE', JSON.stringify(informationsExpance))
+    newExpanse()
 }
  printInformation(plusMinus)
 });
 
+// print Informations
 const printInformation = (incomeOrExpanse) => {
         const infos = JSON.parse(localStorage.getItem('informations'))
         const infosExpanse = JSON.parse(localStorage.getItem('informationsE'))
@@ -108,13 +120,74 @@ const printInformation = (incomeOrExpanse) => {
         }
 }
 
+// add balance, income ,expanse
+let totalBalance = parseInt(document.getElementById('balance').innerText)
+
+
+
+
+function newBalance(){
+  const value = parseInt(document.getElementById("value").value) ;
+
+  
+ let balance = 0
+    if(localStorage.getItem('balance')){
+       balance = JSON.parse(localStorage.getItem('balance'))
+       
+    }
+    balance = balance + value
+  
+  
+    
+    localStorage.setItem('balance', JSON.stringify(balance))
+    document.getElementById('balance').innerText = balance
+
+}
+
+
+function newIncome(){
+  const value = parseInt(document.getElementById("value").value) ;
+  let totalIncome =parseInt (document.getElementById('incomee').innerText)
+let income = 0
+ income = totalIncome+ value
+ console.log(income)
+ document.getElementById('incomee').innerText = income
+}
+
+function newExpanse(){
+  let totalExpanse =parseFloat( document.getElementById('expansee').innerText)
+  const value = parseInt(document.getElementById("value").value) ;
+  let expanse = 0
+  expanse = totalExpanse+ value
+  document.getElementById('expansee').innerText = expanse
+  
+  let myBalance = parseInt(localStorage.getItem('balance')) 
+  myBalance = myBalance - value
+  localStorage.setItem('balance', JSON.stringify(myBalance))
+  document.getElementById('balance').innerText = myBalance
+}
+
+
+
+
+
+
+
+
+
+
 window.onload = function(){
+  let array =[]
+  localStorage.setItem('informations', JSON.stringify(array))
+  localStorage.setItem('informationE', JSON.stringify(array))
+  
     if(localStorage.getItem('informations') || localStorage.getItem('informationsE') ){
+      
  const incomeInfo = JSON.parse(localStorage.getItem('informations'))
  const expanseInfo = JSON.parse(localStorage.getItem('informationsE'))
  const incomeRow = document.getElementById('income')
  const expanseROW = document.getElementById('expanse')
-
+ 
  incomeRow.innerHTML =""
             incomeInfo.forEach(info => {
                 const {item ,value,id} = info
@@ -137,7 +210,8 @@ window.onload = function(){
               </tr> 
                 `
             });
+let myBalance = parseInt(localStorage.getItem('balance'))
+document.getElementById('balance').innerText = myBalance
+  
         }
-
 }
-
